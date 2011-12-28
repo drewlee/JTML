@@ -1,4 +1,4 @@
-(function(){
+(function(w){
 	// quit if function name already exists
 	if(typeof JHTMLparse !== 'undefined'){return;}
 	
@@ -43,46 +43,40 @@
 	
 	// parse 
 	function parseAttr(selector){
-		var arr = [selector], tag, attr,
-			// self closing tags
-			single = /input|meta|col|br|hr/,
-			isSingle = false;
-        
-        // determine attributes
-        attr = selector.match(/(\[.[^\]]+\])/g) || [];
-        if(attr.length){
-			arr[0] = selector.replace(attr.join(''), '');
-		}
-        
-        // determine classes
-        if(selector.indexOf('.') > 0){
-            arr = arr[0].split('.');
-            attr.push('class="' + arr.slice(1).join(' ') + '"');
-        }
-    
-        // determine id
-        if(arr[0].indexOf('#') > 0){
-            arr = arr[0].split('#');
-            attr.push('id="' + arr[1] + '"');
-        }
-        
-		// store html tag
-        tag = arr[0];
+		var single   = /input|meta|col|br|hr/,
+			isSingle = false,
+			arr  = [],
+			tag  = selector.match(/^[^#.[\]]+/),
+			id   = selector.match(/#([^.\[]+)/),
+			cls  = selector.match(/\.([^#.\[])+/g),
+			attr = selector.match(/(\[.[^\]]+\])/g);
 		
-		// is this a self closing tag?
+		if(tag){tag = tag[0];}
+		if(id){arr.push('id="' + id.pop() + '"');}
+		if(cls){
+			cls = cls.join(' ');
+			cls = cls.replace(/\./g, '');
+			arr.push('class="' + cls + '"');
+		}
+		if(attr){
+			attr = attr.join(' ');
+			attr = attr.replace(/\[|\]/g, '');
+			arr.push(attr);
+		}
+		
 		if(tag.match(single)){
 			isSingle = true;
 		}
-    
+		
         return {
-            open: '<' + tag + (attr.length ? ' ' + attr.join(' ').replace(/\[|\]/g, '') : '') + (isSingle ? ' />' : '>') + '\n',
+            open: '<' + tag + (arr.length ? ' ' + arr.join(' ') : '') + (isSingle ? ' />' : '>') + '\n',
             close: isSingle ? '' : '</' + tag + '>\n'
         };
 	}
 	
 	
 	// PUBLIC
-	this.JHTMLparse = function(json){
+	w.JHTMLparse = function(json){
 		return recurseObj(json);
 	};
-})();
+})(window);
