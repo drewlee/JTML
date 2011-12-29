@@ -1,4 +1,4 @@
-JHTML is my experiment in creating a templating system based on JSON. Need to render a table? Simply write:
+JHTML is my experiment in creating an HTML rendering system based on JSON. Need to render a table? Simply write:
 
 var tbl = {
 	"table": [
