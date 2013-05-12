@@ -51,7 +51,7 @@ var tbl = {
 
 Convert the JSON to HTML:
 ```javascript
-document.body.innerHTML = JHTMLparse(tbl);
+document.body.innerHTML = JTMLparse(tbl);
 ```
 
 Fill an unordered list:
@@ -70,16 +70,25 @@ var listMarkup = {
 };
 
 for (var i=0, len=listValues.length; i<len; i++){
-  listMarkup['ul#list'][i] = {'li': {'a[href="#"]': {'span': listValues[i]}}};
+  listMarkup['ul#list'][i] = {
+    'li': {
+      'a[href="#"]': {
+        'span': listValues[i]
+      }
+    }
+  };
 }
 
-document.body.innerHTML = JHTMLparse(listMarkup);
+document.body.innerHTML = JTMLparse(listMarkup);
 ```
 
 You can specify attributes with jQuery like selector syntax:
 ```javascript
-var link = {'a#my_link.my-link1.my-link2[href="http://google.com"][target="_blank"]': 'Click me!'};
-document.body.innerHTML = JHTMLparse(link);
+var link = {
+  'a#my_link.my-link1.my-link2[href="http://google.com"][target="_blank"]': 'Click me!'
+};
+
+document.body.innerHTML = JTMLparse(link);
 ```
 
 outputs:
