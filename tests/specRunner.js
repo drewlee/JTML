@@ -1,52 +1,52 @@
 describe('JHTML parser', function(){
 	it('should output single class name', function(){
 		var tag = {'div.class1': 'Hello World!'};
-		expect(JHTMLparse(tag)).toEqual('<div class="class1">Hello World!</div>');
+		expect(JTMLparse(tag)).toEqual('<div class="class1">Hello World!</div>');
 	});
 	
 	it('should output multiple class names', function(){
 		var tag = {'div.class1.class2.class3': 'Hello World!'};
-		expect(JHTMLparse(tag)).toEqual('<div class="class1 class2 class3">Hello World!</div>');
+		expect(JTMLparse(tag)).toEqual('<div class="class1 class2 class3">Hello World!</div>');
 	});
 	
 	it('should output id', function(){
 		var tag = {'div#theId': 'Hello World!'};
-		expect(JHTMLparse(tag)).toEqual('<div id="theId">Hello World!</div>');
+		expect(JTMLparse(tag)).toEqual('<div id="theId">Hello World!</div>');
 	});
 	
 	it('should ignore multiple ids', function(){
 		var tag = {'div#theId1#theid2': 'Hello World!'};
-		expect(JHTMLparse(tag)).toEqual('<div id="theId1">Hello World!</div>');
+		expect(JTMLparse(tag)).toEqual('<div id="theId1">Hello World!</div>');
 	});
 	
 	it('should output single attribute', function(){
 		var tag = {'a[href="http://www.google.com"]': 'Hello Google!'};
-		expect(JHTMLparse(tag)).toEqual('<a href="http://www.google.com">Hello Google!</a>');
+		expect(JTMLparse(tag)).toEqual('<a href="http://www.google.com">Hello Google!</a>');
 	});
 	
 	it('should output multiple attributes', function(){
 		var tag = {'a[href="http://www.google.com"][target="_blank"][title="Google"]': 'Hello Google!'};
-		expect(JHTMLparse(tag)).toEqual('<a href="http://www.google.com" target="_blank" title="Google">Hello Google!</a>');
+		expect(JTMLparse(tag)).toEqual('<a href="http://www.google.com" target="_blank" title="Google">Hello Google!</a>');
 	});
 	
 	it('should output the expected HTML', function(){
 		var tag = {'a#myLink.class1.class2[href="http://www.google.com"]': "Hello World!"};
-		expect(JHTMLparse(tag)).toEqual('<a href="http://www.google.com" id="myLink" class="class1 class2">Hello World!</a>');
+		expect(JTMLparse(tag)).toEqual('<a href="http://www.google.com" id="myLink" class="class1 class2">Hello World!</a>');
 	});
 	
 	it('should output deeply nested structures', function(){
 		var tag = {'div#id1': {'div#id2': {'div#id3': {'div#id4': {'div.message': 'Div Soup!'}}}}};
-		expect(JHTMLparse(tag)).toEqual('<div id="id1"><div id="id2"><div id="id3"><div id="id4"><div class="message">Div Soup!</div></div></div></div></div>');
+		expect(JTMLparse(tag)).toEqual('<div id="id1"><div id="id2"><div id="id3"><div id="id4"><div class="message">Div Soup!</div></div></div></div></div>');
 	});
 	
 	it('should output single self closing tags correctly', function(){
 		var tag = {'img[src="/image.jpg"][width="80"][height="80"]': ''};
-		expect(JHTMLparse(tag)).toEqual('<img src="/image.jpg" width="80" height="80" />');
+		expect(JTMLparse(tag)).toEqual('<img src="/image.jpg" width="80" height="80" />');
 	});
 	
 	it('should output multiple self closing tags correctly', function(){
 		var tag = [{'hr': ''}, {'input[type="text"]': ''}, {'br': ''}, {'link[rel="stylesheet"][href="css/styles.css"]': ''}];
-		expect(JHTMLparse(tag)).toEqual('<hr /><input type="text" /><br /><link rel="stylesheet" href="css/styles.css" />');
+		expect(JTMLparse(tag)).toEqual('<hr /><input type="text" /><br /><link rel="stylesheet" href="css/styles.css" />');
 	});
 	
 	it('should pass the ultimate test', function(){
@@ -69,7 +69,7 @@ describe('JHTML parser', function(){
 			}
 		};
 		
-		expect(JHTMLparse(tag)).toEqual(
+		expect(JTMLparse(tag)).toEqual(
 			'<table cellpadding="0" cellspacing="0" border="0" id="test_table" class="test-table">' +
 				'<colgroup>' +
 					'<col width="33%" />' +
