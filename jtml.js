@@ -1,8 +1,10 @@
-(function(namespace){
+(function(){
   'use strict';
 
+  var scope = this;
+
   // quit if function name already exists
-  if (namespace.JTMLparse){
+  if (scope.JTMLparse){
     return;
   }
 
@@ -94,7 +96,7 @@
     };
   }
   
-  namespace.JTMLparse = function(json){
+  scope.JTMLparse = function(json){
     return recurseObj(json);
   };
-})(window);
+}).call(this);
