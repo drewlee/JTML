@@ -69,15 +69,15 @@ var listMarkup = {
   'ul#list': []
 };
 
-for (var i=0, len=listValues.length; i<len; i++){
+listValues.forEach(function(element, i){
   listMarkup['ul#list'][i] = {
-    'li': {
-      'a[href=#]': {
-        'span': listValues[i]
+      'li': {
+        'a[href=#]': {
+          'span': element
+        }
       }
-    }
-  };
-}
+    };
+});
 
 document.body.innerHTML = parseJTML(listMarkup);
 ```
