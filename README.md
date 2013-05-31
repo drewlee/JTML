@@ -95,3 +95,5 @@ outputs:
 ```html
 <a id="my_link" class="my-link1 my-link2" href="http://google.com" target="_blank">Click me!</a>
 ```
+
+Compatible with Node and asynchronous module loaders.
