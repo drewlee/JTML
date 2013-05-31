@@ -21,7 +21,7 @@
       REGEX = {
         SELF_CLOSING_TAGS: new RegExp('^(' + SELF_CLOSING_TAGS.join('|') + ')$', 'i'),
         ATTRS: /\[[^\]]+\]/g,
-        ATTRS_QUOTE: /=([^\s]+)/g,
+        ATTRS_QUOTE: /\=([^\s]+)/g,
         BRACKETS: /\[|\]/g,
         TAGS: /^[^#.\s]+/,
         ID: /#([^.#\s]+)/,
@@ -45,7 +45,6 @@
     return str.replace('%s', val);
   }
 
-  // deep level object parsing
   function parse(obj){
     var str = '',
         tag;
