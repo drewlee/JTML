@@ -21,6 +21,7 @@
       REGEX = {
         SELF_CLOSING_TAGS: new RegExp('^(' + SELF_CLOSING_TAGS.join('|') + ')$', 'i'),
         ATTRS: /\[[^\]]+\]/g,
+        ATTRS_QUOTE: /=([^\s]+)/g,
         BRACKETS: /\[|\]/g,
         TAGS: /^[^#.\s]+/,
         ID: /#([^.#\s]+)/,
@@ -53,17 +54,14 @@
       for (var i=0, lgth=obj.length; i<lgth; i++){
         str += parse( obj[i] );
       }
-      
     } else if ( isObject(obj) ){
       for (var prop in obj){
         tag = parseAttr(prop);
         
         str += tag.open + parse( obj[prop] ) + tag.close;
       }
-    
     } else if (typeof obj === 'string'){
       str += obj;
-      
     } else {
       str += '';
     }
@@ -77,7 +75,7 @@
     if (attr.length){
       attr = attr.join(' ');
       attr = attr.replace(REGEX.BRACKETS, '');
-      attr = attr.replace(/=([^\s]+)/g, function(match){
+      attr = attr.replace(REGEX.ATTRS_QUOTE, function(match){
         return '="' + match.substr(1) + '"';
       });
 
